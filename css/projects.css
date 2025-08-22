@@ -103,6 +103,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
   margin-bottom: 60px;
+  align-items: start;
 }
 
 .project-card {
@@ -111,7 +112,6 @@ body {
   border-radius: 16px;
   padding: 30px;
   transition: all 0.3s ease;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -128,7 +128,19 @@ body {
   margin-bottom: 25px;
   color: #ccc;
   line-height: 1.5;
-  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: max-height 0.3s ease;
+  max-height: 4.5em;
+  white-space: normal;
+}
+
+.project-card:hover p {
+  -webkit-line-clamp: unset;
+  max-height: 1000px;
 }
 
 .project-card a {
