@@ -13,7 +13,6 @@
     let isMatrixActive = false;
     let matrixInterval;
 
-    // Elementos que podem ativar o easter egg
     const possibleTriggers = [
         '.profile-img', 
         '.logo', 
@@ -22,7 +21,6 @@
         '.projects-container h2'
     ];
 
-    // Encontra o primeiro elemento disponível na página
     function findTriggerElement() {
         for (const selector of possibleTriggers) {
             const element = document.querySelector(selector);
@@ -31,7 +29,6 @@
         return document.body;
     }
 
-    // Configura os gatilhos do easter egg
     function setupEasterEggTriggers() {
         const triggerElement = findTriggerElement();
         
@@ -146,7 +143,6 @@
         secretMsg.style.animation = 'glitch 0.5s infinite alternate';
         document.body.appendChild(secretMsg);
 
-        // Adiciona os estilos necessários se não existirem
         addMatrixStyles();
 
         // Depois de 5 segundos → ativa Matrix
@@ -163,7 +159,6 @@
     }
 
     function addMatrixStyles() {
-        // Adiciona estilos CSS necessários
         if (!document.getElementById('matrix-styles')) {
             const styles = `
                 @keyframes glitch {
@@ -200,20 +195,17 @@
     }
 
     function startMatrixBackground() {
-        // Remove canvas existente se houver
         const existingCanvas = document.getElementById('matrix-canvas');
         if (existingCanvas) {
             existingCanvas.remove();
         }
         
-        // Cria um novo canvas para o efeito Matrix
         const canvas = document.createElement('canvas');
         canvas.id = 'matrix-canvas';
         document.body.appendChild(canvas);
         
         const ctx = canvas.getContext("2d");
         
-        // Ajusta o tamanho do canvas para cobrir toda a viewport
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -222,54 +214,42 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
-        // Configuração do efeito Matrix
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
         const fontSize = 14;
         const columns = Math.floor(canvas.width / fontSize);
         
-        // Array de gotas - cada coluna tem uma posição vertical
         const drops = [];
         for (let i = 0; i < columns; i++) {
             drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
         }
         
-        // Função para desenhar o efeito Matrix
         function drawMatrix() {
-            // Fundo semi-transparente para criar rastro
             ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            ctx.fillStyle = "#0F0"; // Cor verde
+            ctx.fillStyle = "#0F0";
             ctx.font = `${fontSize}px monospace`;
             
-            // Para cada coluna
             for (let i = 0; i < drops.length; i++) {
-                // Caractere aleatório
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                
-                // Posição x da coluna, posição y da gota
+
                 const x = i * fontSize;
                 const y = drops[i] * fontSize;
-                
-                // Desenha o caractere
+   
                 ctx.fillText(text, x, y);
                 
-                // Move a gota para baixo
                 drops[i]++;
                 
-                // Se a gota sair da tela ou aleatoriamente, reinicia no topo
                 if (y > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
             }
         }
         
-        // Limpa qualquer intervalo anterior
         if (matrixInterval) {
             clearInterval(matrixInterval);
         }
         
-        // Inicia a animação
         matrixInterval = setInterval(drawMatrix, 50);
     }
 
@@ -277,20 +257,17 @@
         isMatrixActive = false;
         document.body.classList.remove('matrix-mode');
         
-        // Para a animação da matrix
         if (matrixInterval) {
             clearInterval(matrixInterval);
             matrixInterval = null;
         }
         
-        // Remove o canvas da matrix
         const matrixCanvas = document.getElementById('matrix-canvas');
         if (matrixCanvas) {
             matrixCanvas.remove();
         }
     }
 
-    // Inicializa quando o documento estiver pronto
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', setupEasterEggTriggers);
     } else {

@@ -12,7 +12,7 @@ body {
   background: #0f0f10;
   color: white;
   overflow-x: hidden;
-  padding-bottom: 60px; /* espaço para o footer */
+  padding-bottom: 60px;
 }
 
 /* Efeito de partículas no fundo */
