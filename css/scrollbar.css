@@ -1,0 +1,25 @@
+/* Scrollbar para navegadores Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff6a00;
+  border-radius: 10px;
+  border: 3px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ee0979;
+}
+
+/* Scrollbar para Firefox */
+* {
+  scrollbar-width: thin;          
+  scrollbar-color: #ff6a00 rgba(255, 255, 255, 0.05);
+}
